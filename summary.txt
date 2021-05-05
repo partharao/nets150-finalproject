@@ -1,0 +1,13 @@
+Project: Generating Smooth-Flowing Spotify Playlists
+Members: Shrivats Kannan (shrivats), Partha Rao (psprao)
+
+Categories Used: Graph and Graph Algorithms, Recommendations, Information Networks
+
+Description: The project aims to create a playlist of 50 songs where songs are similar to each other musically starting from a user-inputted seed song. It aims to discover connections between songs that perhaps the Spotify API's recommendation engine does not find.
+
+(Partha) First the application asks the user to log in because an account is needed to send requests to the API from and to store the final playlist in. Then, using the API, 5 recommendations are generated for the source song, 5 more for each of those, and 5 more for these for a tree of total depth 3. Then, each song is also tied with a vector of audio features found through the API. These audio features are standardized into values between 0 and 1 that provide information into technical music qualities of each song including acousticness, liveness, instrumentalness, energy, etc. This is the Information Networks category.
+
+(Shrivats) Then, a 150 x 150 adjacency matrix is created with the 150 generated songs. This represents a fully connected graph where every song is connected to every other song. The edge weight for each song is calculated with the cosine similarity of the vectors of audio features between the source and destination song. This results in a value between 0 and 1. Once the graph has been assembled, it is traversed using BFS to greedily select the highest weight edge beginning at the source song. This is continued until 50 unique songs are selected. By choosing the highest weight edge, we find the song that is most technically similar and thus make the transition between songs as smooth flowing as possible. The program then returns a list of the songs to comprise the final playlist. These steps comprise the Graph and Graph Algorithms category and the Advanced Topics (recommendations) category.
+
+(Partha) Using this list of songs, another request is made to the API to convert this list of song IDs to a playlist in the user’s Spotify account.
+
