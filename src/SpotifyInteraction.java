@@ -22,12 +22,8 @@ import org.apache.hc.core5.http.ParseException;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.Scanner;
 
 
 public class SpotifyInteraction {
@@ -203,6 +199,7 @@ public class SpotifyInteraction {
             for (String id : finalIdList) {
                 playlistURIs.add(songUris.get(id));
             }
+            playlistURIs.removeAll(Collections.singleton(null));
             GetCurrentUsersProfileRequest currentUsersProfileRequest = spotifyApi.getCurrentUsersProfile().build();
             String userId = currentUsersProfileRequest.execute().getId();
             CreatePlaylistRequest createPlaylistRequest = spotifyApi
@@ -261,9 +258,7 @@ public class SpotifyInteraction {
         getTracks();
         Graph songGraph = new Graph(songAdjacency, songAttributes);
         //songGraph.printGraph();
-
         List<String> forPlaylist = songGraph.similarPath(sourceId);
-        forPlaylist.add("0VjIjW4GlUZAMYd2vXMi3b");
         System.out.println(forPlaylist);
         createPlaylist(forPlaylist);
         server.stop(0);

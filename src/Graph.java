@@ -150,9 +150,7 @@ class Graph
         List<String> path = new ArrayList<String>();
         path.add(curr.getId());
         while(curr != null && (path.size() < 50)) {
-//            System.out.println(curr.getId());
             row = mappings.get(curr.getId());
-//            System.out.println(row);
             Double max = 0.0;
             Node newC = null;
             for (int j = 0; j < size; j++) {
@@ -163,8 +161,6 @@ class Graph
                     if (temp.getWeight()>max) {
                         newC = temp.getDest();
                     }
-
-
                 }
 
             }
@@ -176,39 +172,7 @@ class Graph
             }
 
         }
-//        System.out.println(mappings.entrySet());
         return path;
-
-//    	for (Node n: adj.keySet()) {
-//    		if (n.getId() == sourceId) {
-//    			curr = n;
-//    		}
-//    	}
-//    	path.add(curr.getId());
-//    	while((curr != null) && (path.size() <= 50)) {
-//    		curr.setVisited();
-//    		List<Edge> neighbors = adj.get(curr);
-//    		if (neighbors != null) {
-//    			Double maxWeight = 0.0;
-//        		Node maxDest = null;
-//        		for (Edge e: neighbors) {
-//        			if (e.getDest().getVisited() == true) {
-//        				continue;
-//        			}
-//    				e.getDest().setVisted();
-//        			if (e.getWeight()>maxWeight) {
-//        				maxWeight = e.getWeight();
-//        				maxDest = e.getDest();
-//        			}
-//        		}
-//        		curr = maxDest;
-//        		path.add(curr.getId());
-//
-//    		} else {
-//    			curr = null;
-//    		}
-//    	}
-//    	return path;
 
     }
 
