@@ -6,6 +6,7 @@ import com.wrapper.spotify.SpotifyHttpManager;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 import com.wrapper.spotify.model_objects.special.SnapshotResult;
+import com.wrapper.spotify.model_objects.specification.AudioFeatures;
 import com.wrapper.spotify.model_objects.specification.*;
 import com.wrapper.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
 import com.wrapper.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 
 public class SpotifyInteraction {
@@ -105,7 +107,7 @@ public class SpotifyInteraction {
         }
     }
 
-    public static void getSourceTrack(String title, String artist) {
+    public static String getSourceTrack(String title, String artist) {
         try {
             searchTracksRequest = spotifyApi.searchTracks(title)
 //          .market(CountryCode.SE)
@@ -116,15 +118,15 @@ public class SpotifyInteraction {
             for (Track track : trackPaging.getItems()) {
                 if (track.getName().contentEquals(title) && track.getArtists()[0].getName().contentEquals(artist)) {
                     sourceId = track.getId();
-                    System.out.println(track.getName());
-                    System.out.println(track.getId());
-                    break;
+                    return track.getId();
+
                 }
                 System.out.println(track.getName() + track.getArtists()[0].toString());
             }
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }
+        return "";
     }
 
     public static void getTracks() {
@@ -153,7 +155,7 @@ public class SpotifyInteraction {
             }
             String[] songArray1 = trackIds.subList(0,50).toArray(new String[0]);
             String[] songArray2 = trackIds.subList(50,100).toArray(new String[0]);
-            String[] songArray3 = trackIds.subList(50,100).toArray(new String[0]);
+            String[] songArray3 = trackIds.subList(100,150).toArray(new String[0]);
             List<AudioFeatures> featuresList = new ArrayList<AudioFeatures>();
             GetAudioFeaturesForSeveralTracksRequest audioFeaturesForSeveralTracksRequest1 = spotifyApi
                     .getAudioFeaturesForSeveralTracks(songArray1)
@@ -249,12 +251,21 @@ public class SpotifyInteraction {
         server.start();
         authorizationCodeUri_Sync();
         authorizationCode_Sync();
-        getSourceTrack("Blinding Lights", "The Weeknd");
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter the Source Song");
+        String title = myObj.nextLine();
+        System.out.println("Enter the Artist of the Source Song");
+        String artist = myObj.nextLine();
+        myObj.close();
+        String sourceId = getSourceTrack(title, artist);
         getTracks();
-        List<String> forPlaylist = new ArrayList<String>();
+        Graph songGraph = new Graph(songAdjacency, songAttributes);
+        //songGraph.printGraph();
+
+        List<String> forPlaylist = songGraph.similarPath(sourceId);
         forPlaylist.add("0VjIjW4GlUZAMYd2vXMi3b");
+        System.out.println(forPlaylist);
         createPlaylist(forPlaylist);
-        System.out.println(songAttributes.toString());
         server.stop(0);
     }
 
