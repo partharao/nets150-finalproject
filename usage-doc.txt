@@ -1,0 +1,17 @@
+In order to run this application, there are a couple of steps. This project depends on the module spotify-web-api-java
+version 6.5.4, and the setup is slightly strange. To replicate our setup, please use the IntelliJ IDE. In IntelliJ,
+create a project from Existing Sources and import the directory. The .idea directory might help with the setup here, but
+in the project files, specify that the project SDK is adopt-openjdk-13 version 13.0.2, with the language level at SDK default. Then,
+in the Modules tab, select Library> From Maven, then put "se.michaelthelin.spotify:spotify-web-api-java:6.5.4" into the
+search bar. Use version 6.5.4 when it comes up. Specify then that the Module SDK is 16. After that, the next step is
+running the class. You need to set up a run configuration, building the SpotifyInteraction class with adopt-openjdk-13
+and no arguments. From there, you should be good to run. Run the configuration you just set up, and when the
+authorization url shows up, sign into a Spotify account. It would be good to have one ready to go, since you only have
+20 seconds to sign in and approve the app. Once the authorization has been approved, the program will prompt you for the
+name of the song, the artist and the name of your desired playlist. Make sure that the title and artist name match
+exactly, or the program will fail. From there, just wait and see your playlist appear in your Spotify account library!
+
+For troubleshooting, please email me at psprao@seas.upenn.edu so we don't fail.
+
+Video demo: https://youtu.be/kWZWUlEIivw (Note that this demo does not have the playlist naming prompt, that was added
+later).

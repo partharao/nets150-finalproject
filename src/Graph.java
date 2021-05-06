@@ -84,7 +84,7 @@ class Graph
     Map<String, Integer> mappings;
     int size;
 
-    public Graph(Map<String, List<String>> inputEdges, Map<String, List<Float>> inputFeatures)
+    public Graph(Map<String, List<Float>> inputFeatures)
     {
         size = inputFeatures.keySet().size();
         adjMat = new Edge[size][size];
