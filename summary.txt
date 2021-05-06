@@ -11,3 +11,5 @@ Description: The project aims to create a playlist of 50 songs where songs are s
 
 (Partha) Using this list of songs, another request is made to the API to convert this list of song IDs to a playlist in the user’s Spotify account.
 
+A video demo of our project can be seen at: https://youtu.be/kWZWUlEIivw
+
