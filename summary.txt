@@ -3,7 +3,7 @@ Members: Shrivats Kannan (shrivats), Partha Rao (psprao)
 
 Categories Used: Graph and Graph Algorithms, Recommendations, Information Networks
 
-Description: The project aims to create a playlist of 50 songs where songs are similar to each other musically starting from a user-inputted seed song. It aims to discover connections between songs that perhaps the Spotify API's recommendation engine does not find.
+Description: The project aims to create a playlist of 50 songs where songs are similar to each other musically starting from a user-inputted seed song. It aims to discover connections between songs that perhaps the Spotify API's recommendation engine does not find. It also desires to have each individual song transition smoothly, as Spotify playlists sometimes do when playing from a certain artist. It does this by using cosine similarity to set up a connected graph, which can then greedily find the most similar song.
 
 (Partha) First the application asks the user to log in because an account is needed to send requests to the API from and to store the final playlist in, then using an HTTP server authenticates the code and gets an access token. It then searches the US market for the source song. Then, using the API, 5 recommendations are generated for the source song, 5 more for each of those, and 5 more for these for a tree of total depth 3. Then, each song is also tied with a vector of audio features found through the API. These audio features are standardized into values between 0 and 1 that provide information into technical music qualities of each song including acousticness, liveness, instrumentalness, energy, etc. This is the Information Networks category.
 
@@ -11,5 +11,6 @@ Description: The project aims to create a playlist of 50 songs where songs are s
 
 (Partha) Using this list of songs, another request is made to the API to convert this list of song IDs to a playlist in the user’s Spotify account.
 
+Note: at times, transitions are not smooth as of right now. I believe we may need to revisit the method by which we create the connections, increasing the number of features and tweaking the weighting of categories so that the song with the highest edge weight truly is the most similar. However, that is a matter of exprerimentation, and the project itself works.
 A video demo of our project can be seen at: https://youtu.be/kWZWUlEIivw
 
