@@ -28,8 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class SpotifyInteraction {
-    private static final String clientId = "d32dc8f635a74790947baf1e851edefd";
-    private static final String clientSecret = "ddf79dadb5784d458934dd264be81e55";
+    private static final String clientId = "*****************************";
+    private static final String clientSecret = "*************************";
     private static URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8000/example");
     private static String code = "";
     private static String sourceId;
